@@ -1,0 +1,29 @@
+{% extends 'polls/base.html' %}
+
+{% block title %}All Polls{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>🗳️ Active Polls</h1>
+    <p>Pick a question and cast your vote.</p>
+</div>
+
+{% if latest_question_list %}
+    <ul class="poll-list">
+        {% for question in latest_question_list %}
+        <li class="poll-card">
+            <a href="{% url 'polls:detail' question.id %}">
+                <span>{{ question.question_text }}</span>
+                <span class="arrow">→</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <div class="empty-state">
+        <div class="empty-icon">📭</div>
+        <h2>No polls available yet</h2>
+        <p>Check back later or add questions via the <a href="/admin/">admin panel</a>.</p>
+    </div>
+{% endif %}
+{% endblock %}

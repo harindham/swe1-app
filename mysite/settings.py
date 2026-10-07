@@ -24,11 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-nd-6fakl*4*_ruj4w00tad-#gciwvvlu0lle*!^blp7o^9howm')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+DEBUG = os.environ.get('DEBUG', 'True').lower() in ('true', '1')
 
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
+    'testserver',
     '.elasticbeanstalk.com',  # allows all EB subdomains
 ]
 

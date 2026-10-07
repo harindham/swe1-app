@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Polls{% endblock %} | Django Polls</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{% url 'polls:index' %}" class="nav-brand">
+                <span class="nav-logo">🗳️</span>
+                Django Polls
+            </a>
+            <div class="nav-links">
+                <a href="{% url 'polls:index' %}">All Polls</a>
+                <a href="/admin/" class="nav-admin">Admin</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Built with Django &mdash; <a href="https://docs.djangoproject.com/en/5.2/intro/tutorial01/" target="_blank">Tutorial Project</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>
