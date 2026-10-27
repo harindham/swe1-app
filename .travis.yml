@@ -1,0 +1,34 @@
+# Travis CI: lint, test, report coverage, then deploy on main only.
+language: python
+dist: jammy
+python:
+  - '3.12'
+
+install:
+  - python -m pip install --upgrade pip
+  - python -m pip install -r requirements.txt
+  - python -m pip install black flake8 coverage coveralls
+
+script:
+  - black --check .
+  - flake8 .
+  - python manage.py check
+  - python manage.py makemigrations --check --dry-run
+  - coverage run --source=mysite,polls manage.py test
+  - coverage report -m
+
+after_success:
+  - coveralls
+
+deploy:
+  provider: elasticbeanstalk
+  edge: true
+  region: "$AWS_DEFAULT_REGION"
+  app: "$EB_APP"
+  env: "$EB_ENV"
+  bucket: "$EB_BUCKET"
+  access_key_id: "$AWS_ACCESS_KEY_ID"
+  secret_access_key: "$AWS_SECRET_ACCESS_KEY"
+  wait_until_deployed: true
+  on:
+    branch: main

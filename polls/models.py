@@ -6,7 +6,7 @@ from django.utils import timezone
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateTimeField("date published")
 
     def __str__(self):
         return self.question_text
@@ -17,7 +17,7 @@ class Question(models.Model):
 
     @property
     def total_votes(self):
-        return self.choice_set.aggregate(models.Sum('votes'))['votes__sum'] or 0
+        return self.choice_set.aggregate(models.Sum("votes"))["votes__sum"] or 0
 
 
 class Choice(models.Model):
