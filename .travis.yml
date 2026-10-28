@@ -1,13 +1,16 @@
-# Travis CI: lint, test, report coverage, then deploy on main only.
+
 language: python
-dist: jammy
+
 python:
-  - '3.12'
+  - "3.12"
+
+branches:
+  only:
+    - main
 
 install:
-  - python -m pip install --upgrade pip
-  - python -m pip install -r requirements.txt
-  - python -m pip install black flake8 coverage coveralls
+  - pip install -r requirements.txt
+  - pip install black flake8 coverage coveralls
 
 script:
   - black --check .
@@ -23,12 +26,12 @@ after_success:
 deploy:
   provider: elasticbeanstalk
   edge: true
-  region: "$AWS_DEFAULT_REGION"
-  app: "$EB_APP"
-  env: "$EB_ENV"
-  bucket: "$EB_BUCKET"
-  access_key_id: "$AWS_ACCESS_KEY_ID"
-  secret_access_key: "$AWS_SECRET_ACCESS_KEY"
+  region: us-east-1
+  app: django-app-swe1
+  env: Django-app-swe1-env
+  bucket: $EB_BUCKET
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
   wait_until_deployed: true
   on:
     branch: main
