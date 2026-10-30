@@ -9,7 +9,7 @@ from .models import Choice, Question
 
 
 class IndexView(generic.ListView):
-    template_name = "polls/index.html" #test comment
+    template_name = "polls/index.html"  # test comment
     context_object_name = "latest_question_list"
 
     def get_queryset(self):
